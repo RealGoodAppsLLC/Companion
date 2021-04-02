@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>Companion</PackageId>
+        <PackageVersion>$(CompanionVersion)</PackageVersion>
+        <Authors>RealGoodApps, LLC</Authors>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/RealGoodAppsLLC/Companion/main/LICENSE</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/RealGoodAppsLLC/Companion</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/RealGoodAppsLLC/Companion</RepositoryUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <Description>Companion</Description>
+        <PackageReleaseNotes>See the following: https://raw.githubusercontent.com/RealGoodAppsLLC/Companion/main/CHANGELOG</PackageReleaseNotes>
+        <Copyright>Copyright 2021 RealGoodApps, LLC</Copyright>
+        <PackageTags>Companion, friend classes, analyzers</PackageTags>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+        <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Companion.Attributes\Companion.Attributes.csproj" />
+        <ProjectReference Include="..\Companion.Analyzer\Companion.Analyzer.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+    <Target Name="_AddAnalyzersToOutput">
+        <ItemGroup>
+            <TfmSpecificPackageFile Include="$(OutputPath)\Companion.Analyzer.dll" PackagePath="analyzers/dotnet/cs" />
+            <TfmSpecificPackageFile Include="$(OutputPath)\Companion.Attributes.dll" PackagePath="lib/netstandard2.0" />
+        </ItemGroup>
+    </Target>
+
+</Project>
